@@ -1,0 +1,71 @@
+using namespace std;
+
+const int BOARD_SIZE = 10;
+const int NUM_SHIPS = 3;
+
+// Represents a square on the board
+struct Square
+{
+    int row, col;
+    bool occupied = false;
+    bool hit = false;
+};
+
+// Represents a ship on the board
+struct Ship
+{
+    int size;
+    vector<Square> squares;
+};
+
+// Represents the game board
+struct Board
+{
+    vector<vector<Square>> squares;
+    vector<Ship> ships;
+};
+
+// Initialize the game board
+void init_board(Board &board)
+{
+    board.squares.resize(BOARD_SIZE, vector<Square>(BOARD_SIZE));
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            board.squares[i][j].row = i;
+            board.squares[i][j].col = j;
+        }
+    }
+}
+
+// Print the game board
+void print_board(const Board &board)
+{
+    cout << "   ";
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        cout << char('A' + i) << " ";
+    }
+    cout << endl;
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        cout << " " << i << " ";
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            if (board.squares[i][j].hit)
+            {
+                cout << "X ";
+            }
+            else if (board.squares[i][j].occupied)
+            {
+                cout << "O ";
+            }
+            else
+            {
+                cout << ". ";
+            }
+        }
+        cout << endl;
+    }
+}
